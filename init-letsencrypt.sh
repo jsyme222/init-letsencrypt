@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(vivacity.online)
+domains=( "$@" )
 rsa_key_size=4096
 data_path="./cert_data/certbot"
 email="jsyme222@gmail.com" # Adding a valid address is strongly recommended
@@ -14,7 +14,7 @@ staging=1 # Set to 1 if you're testing your setup to avoid hitting request limit
 if [ -d "$data_path" ]; then
   read -p "Existing data found for $domains. Continue and replace existing certificate? (y/N) " decision
   if [ "$decision" != "Y" ] && [ "$decision" != "y" ]; then
-    exit
+   return 
   fi
 fi
 
